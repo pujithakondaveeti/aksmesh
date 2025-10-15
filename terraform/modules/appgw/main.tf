@@ -83,7 +83,7 @@ resource "azurerm_application_gateway" "appgw" {
 }
 
 ########################
-# DNS Zone
+# DNS Zone to support ServiceMesh ingress gateway access
 ########################
 resource "azurerm_dns_zone" "appgw_zone" {
   name                = var.dns_zone_name
