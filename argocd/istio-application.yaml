@@ -1,0 +1,59 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-controlplane
+  namespace: argocd
+  labels:
+    app.kubernetes.io/managed-by: terraform
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+  source:
+    repoURL: https://istio-release.storage.googleapis.com/charts
+    chart: istiod
+    targetRevision: "1.21.3"
+    helm:
+      valueFiles: []
+      values: |-
+        global:
+          # Enable automatic sidecar injection if you want namespace or label control:
+          proxy:
+            autoInject: enabled
+
+        meshConfig:
+          accessLogFile: "/dev/stdout"
+
+        pilot:
+          autoscaleEnabled: true
+
+        telemetry:
+          v2:
+            enabled: true
+
+        # Enable ingressgateway component here (many istio charts expose it)
+        gateways:
+          istio-ingressgateway:
+            enabled: true
+            # Use ClusterIP because AGIC will target pod IPs; change to NodePort/LoadBalancer if required
+            service:
+              type: ClusterIP
+            resources:
+              requests:
+                cpu: 100m
+                memory: 128Mi
+              limits:
+                cpu: 500m
+                memory: 512Mi
+
+        # Optional: enable sidecar injection admission webhook settings
+        sidecarInjector:
+          enabled: true
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

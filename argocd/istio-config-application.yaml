@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: istio-config
+  namespace: argocd
+  labels:
+    app.kubernetes.io/part-of: istio
+    app.kubernetes.io/managed-by: terraform
+spec:
+  project: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: istio-system
+  source:
+    repoURL: https://github.com/pujithakondaveeti/aksmesh.git
+    targetRevision: main
+    path: apps/istio
+    kustomize:
+      namePrefix: ""
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-v1
+  namespace: demo
+  labels:
+    app: backend
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: backend
+        version: v1
+        istio-injection: enabled
+    spec:
+      containers:
+        - name: backend
+          image: oakit-ffe2cycucwbmf6h3.azurecr.io/backend:v1
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: demo-registry-secret
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-v2
+  namespace: demo
+  labels:
+    app: backend
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: backend
+        version: v2
+        istio-injection: enabled
+    spec:
+      containers:
+        - name: backend
+          image: oakit-ffe2cycucwbmf6h3.azurecr.io/backend:v2
+          ports:
+            - containerPort: 8080
+      imagePullSecrets:
+        - name: demo-registry-secret

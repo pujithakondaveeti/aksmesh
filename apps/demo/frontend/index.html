@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Traffic Split Demo</title>
+  </head>
+  <body>
+    <h1>Frontend Service</h1>
+    <button onclick="callBackend()">Call Backend</button>
+    <p id="response"></p>
+
+    <script>
+      async function callBackend() {
+        try {
+          const res = await fetch("/backend");
+          const data = await res.json();
+          document.getElementById("response").innerText = data.message;
+        } catch (err) {
+          document.getElementById("response").innerText =
+            "Error calling backend: " + err;
+        }
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: backend-traffic-split
+  namespace: demo
+spec:
+  hosts:
+    - "frontend.mesh.yourdomain.com"
+  gateways:
+    - istio-system/istio-mesh-gateway
+  http:
+    - route:
+        - destination:
+            host: backend.demo.svc.cluster.local
+            subset: v1
+          weight: 90
+        - destination:
+            host: backend.demo.svc.cluster.local
+            subset: v2
+          weight: 10

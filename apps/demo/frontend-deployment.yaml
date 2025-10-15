@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: demo
+  labels:
+    app: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+        istio-injection: enabled
+    spec:
+      containers:
+        - name: frontend
+          image: oakit-ffe2cycucwbmf6h3.azurecr.io/frontend:latest
+          ports:
+            - containerPort: 80
+      imagePullSecrets:
+        - name: demo-registry-secret
