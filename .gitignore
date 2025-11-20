@@ -36,5 +36,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 .terraform.lock.hcl
-README.md
+/README.md
 .DS_Store
