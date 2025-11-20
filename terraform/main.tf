@@ -39,3 +39,9 @@ module "monitoring" {
   kubeconfig = module.aks.kubeconfig
   depends_on = [module.aks]
 }
+
+module "hnc" {
+  source     = "./modules/hnc"
+  kubeconfig = module.aks.kubeconfig
+  depends_on = [module.aks]
+}

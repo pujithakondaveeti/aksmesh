@@ -1,0 +1,28 @@
+---
+# SubnamespaceAnchor for application1-nds under ss-automative-nds
+apiVersion: hnc.x-k8s.io/v1alpha2
+kind: SubnamespaceAnchor
+metadata:
+  name: application1-nds
+  namespace: ss-automative-nds
+---
+# SubnamespaceAnchor for application2-nds under ss-automative-nds
+apiVersion: hnc.x-k8s.io/v1alpha2
+kind: SubnamespaceAnchor
+metadata:
+  name: application2-nds
+  namespace: ss-automative-nds
+---
+# SubnamespaceAnchor for integration1-nds under ss-integrations-nds
+apiVersion: hnc.x-k8s.io/v1alpha2
+kind: SubnamespaceAnchor
+metadata:
+  name: integration1-nds
+  namespace: ss-integrations-nds
+---
+# SubnamespaceAnchor for integration2-nds under ss-integrations-nds
+apiVersion: hnc.x-k8s.io/v1alpha2
+kind: SubnamespaceAnchor
+metadata:
+  name: integration2-nds
+  namespace: ss-integrations-nds
