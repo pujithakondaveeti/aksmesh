@@ -1,0 +1,129 @@
+---
+# Example: Admin Role for ss-automative-nds parent namespace
+# This role will propagate to all child namespaces (application1-nds, application2-nds)
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: namespace-admin
+  namespace: ss-automative-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"  # Enable propagation to child namespaces
+rules:
+- apiGroups: ["", "apps", "batch"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+# Example: Developer Role for ss-automative-nds parent namespace
+# Read-only access that propagates to child namespaces
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: namespace-developer
+  namespace: ss-automative-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+rules:
+- apiGroups: ["", "apps", "batch"]
+  resources: ["pods", "deployments", "services", "configmaps", "secrets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get", "list"]
+---
+# Example: RoleBinding for admin users in ss-automative-nds
+# This binding will also propagate to child namespaces
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: admin-binding
+  namespace: ss-automative-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: namespace-admin
+subjects:
+- kind: Group
+  name: automative-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+# Example: RoleBinding for developer users in ss-automative-nds
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-binding
+  namespace: ss-automative-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: namespace-developer
+subjects:
+- kind: Group
+  name: automative-developers
+  apiGroup: rbac.authorization.k8s.io
+---
+# Example: Admin Role for ss-integrations-nds parent namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: namespace-admin
+  namespace: ss-integrations-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+rules:
+- apiGroups: ["", "apps", "batch"]
+  resources: ["*"]
+  verbs: ["*"]
+---
+# Example: Developer Role for ss-integrations-nds parent namespace
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: namespace-developer
+  namespace: ss-integrations-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+rules:
+- apiGroups: ["", "apps", "batch"]
+  resources: ["pods", "deployments", "services", "configmaps", "secrets"]
+  verbs: ["get", "list", "watch"]
+- apiGroups: [""]
+  resources: ["pods/log"]
+  verbs: ["get", "list"]
+---
+# Example: RoleBinding for admin users in ss-integrations-nds
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: admin-binding
+  namespace: ss-integrations-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: namespace-admin
+subjects:
+- kind: Group
+  name: integrations-admins
+  apiGroup: rbac.authorization.k8s.io
+---
+# Example: RoleBinding for developer users in ss-integrations-nds
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: developer-binding
+  namespace: ss-integrations-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: namespace-developer
+subjects:
+- kind: Group
+  name: integrations-developers
+  apiGroup: rbac.authorization.k8s.io

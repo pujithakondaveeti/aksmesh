@@ -37,6 +37,22 @@ kubectl apply -f subnamespace-anchors.yaml
 echo "==> Waiting for child namespaces to be created..."
 sleep 5
 
+# Apply RBAC policies
+echo "==> Applying RBAC policies..."
+kubectl apply -f rbac-examples.yaml
+
+# Apply Resource Quotas and Limits
+echo "==> Applying Resource Quotas and Limits..."
+kubectl apply -f quota-examples.yaml
+
+# Apply Network Policies
+echo "==> Applying Network Policies..."
+kubectl apply -f networkpolicy-examples.yaml
+
+# Wait for propagation
+echo "==> Waiting for policies to propagate to child namespaces..."
+sleep 5
+
 # Verify the namespaces
 echo ""
 echo "==> Verification:"
@@ -47,6 +63,30 @@ kubectl get ns ss-automative-nds ss-integrations-nds
 echo ""
 echo "Child namespaces:"
 kubectl get ns application1-nds application2-nds integration1-nds integration2-nds
+
+echo ""
+echo "RBAC Roles in ss-automative-nds:"
+kubectl get roles -n ss-automative-nds
+
+echo ""
+echo "RBAC Roles propagated to application1-nds:"
+kubectl get roles -n application1-nds
+
+echo ""
+echo "Resource Quotas in ss-automative-nds:"
+kubectl get resourcequotas -n ss-automative-nds
+
+echo ""
+echo "Resource Quotas propagated to application1-nds:"
+kubectl get resourcequotas -n application1-nds
+
+echo ""
+echo "Network Policies in ss-automative-nds:"
+kubectl get networkpolicies -n ss-automative-nds
+
+echo ""
+echo "Network Policies propagated to application1-nds:"
+kubectl get networkpolicies -n application1-nds
 
 echo ""
 echo "==> Deployment complete!"

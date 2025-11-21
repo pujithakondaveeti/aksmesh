@@ -1,0 +1,130 @@
+---
+# Example: Resource Quota for ss-automative-nds parent namespace
+# This quota will propagate to all child namespaces (application1-nds, application2-nds)
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-quota
+  namespace: ss-automative-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"  # Enable propagation to child namespaces
+spec:
+  hard:
+    requests.cpu: "10"
+    requests.memory: 20Gi
+    limits.cpu: "20"
+    limits.memory: 40Gi
+    persistentvolumeclaims: "10"
+    requests.storage: 100Gi
+---
+# Example: Object Count Quota for ss-automative-nds
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: object-quota
+  namespace: ss-automative-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+spec:
+  hard:
+    pods: "50"
+    services: "20"
+    configmaps: "20"
+    secrets: "20"
+    persistentvolumeclaims: "10"
+---
+# Example: LimitRange for ss-automative-nds parent namespace
+# Sets default limits and requests for containers
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: resource-limits
+  namespace: ss-automative-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+spec:
+  limits:
+  - max:
+      cpu: "2"
+      memory: 4Gi
+    min:
+      cpu: 100m
+      memory: 128Mi
+    default:
+      cpu: 500m
+      memory: 512Mi
+    defaultRequest:
+      cpu: 200m
+      memory: 256Mi
+    type: Container
+  - max:
+      cpu: "4"
+      memory: 8Gi
+    min:
+      cpu: 100m
+      memory: 128Mi
+    type: Pod
+---
+# Example: Resource Quota for ss-integrations-nds parent namespace
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: compute-quota
+  namespace: ss-integrations-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+spec:
+  hard:
+    requests.cpu: "8"
+    requests.memory: 16Gi
+    limits.cpu: "16"
+    limits.memory: 32Gi
+    persistentvolumeclaims: "8"
+    requests.storage: 80Gi
+---
+# Example: Object Count Quota for ss-integrations-nds
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: object-quota
+  namespace: ss-integrations-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+spec:
+  hard:
+    pods: "40"
+    services: "15"
+    configmaps: "15"
+    secrets: "15"
+    persistentvolumeclaims: "8"
+---
+# Example: LimitRange for ss-integrations-nds parent namespace
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: resource-limits
+  namespace: ss-integrations-nds
+  labels:
+    propagate.hnc.x-k8s.io/treeSelect: "true"
+spec:
+  limits:
+  - max:
+      cpu: "2"
+      memory: 4Gi
+    min:
+      cpu: 100m
+      memory: 128Mi
+    default:
+      cpu: 500m
+      memory: 512Mi
+    defaultRequest:
+      cpu: 200m
+      memory: 256Mi
+    type: Container
+  - max:
+      cpu: "4"
+      memory: 8Gi
+    min:
+      cpu: 100m
+      memory: 128Mi
+    type: Pod
