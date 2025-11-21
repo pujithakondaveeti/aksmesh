@@ -8,6 +8,10 @@ resource "helm_release" "hnc" {
 
   create_namespace = true
 
+  values = [
+    file("${path.module}/../../../k8s-manifests/hierarchical-namespaces/helm-values/hnc-values.yaml")
+  ]
+
   depends_on = []
 }
 

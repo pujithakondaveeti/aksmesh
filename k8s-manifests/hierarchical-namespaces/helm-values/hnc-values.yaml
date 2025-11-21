@@ -1,0 +1,28 @@
+# Helm values for Hierarchical Namespace Controller (HNC)
+# Used by the Terraform module or can be applied manually with Helm
+
+# Manager configuration
+manager:
+  # Resources for the HNC manager
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+# Webhook configuration
+webhook:
+  # Resources for the HNC webhook
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+# Enable metrics
+metrics:
+  enabled: true
