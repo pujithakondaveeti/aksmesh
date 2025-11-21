@@ -301,11 +301,10 @@ resource "kubernetes_resource_quota" "automative_object_quota" {
 
   spec {
     hard = {
-      "pods"                   = "50"
-      "services"               = "20"
-      "configmaps"             = "20"
-      "secrets"                = "20"
-      "persistentvolumeclaims" = "10"
+      "pods"       = "50"
+      "services"   = "20"
+      "configmaps" = "20"
+      "secrets"    = "20"
     }
   }
 }
@@ -389,11 +388,10 @@ resource "kubernetes_resource_quota" "integrations_object_quota" {
 
   spec {
     hard = {
-      "pods"                   = "40"
-      "services"               = "15"
-      "configmaps"             = "15"
-      "secrets"                = "15"
-      "persistentvolumeclaims" = "8"
+      "pods"       = "40"
+      "services"   = "15"
+      "configmaps" = "15"
+      "secrets"    = "15"
     }
   }
 }

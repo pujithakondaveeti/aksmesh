@@ -31,7 +31,6 @@ spec:
     services: "20"
     configmaps: "20"
     secrets: "20"
-    persistentvolumeclaims: "10"
 ---
 # Example: LimitRange for ss-automative-nds parent namespace
 # Sets default limits and requests for containers
@@ -96,7 +95,6 @@ spec:
     services: "15"
     configmaps: "15"
     secrets: "15"
-    persistentvolumeclaims: "8"
 ---
 # Example: LimitRange for ss-integrations-nds parent namespace
 apiVersion: v1
