@@ -8,6 +8,6 @@ output "appgw_subnet_id" {
 }
 
 output "main_rg" {
-    value = azurerm_resource_group.rg.name
-  
+  value = azurerm_resource_group.rg.name
+
 }

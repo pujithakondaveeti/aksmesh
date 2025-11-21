@@ -15,9 +15,9 @@ module "appgw" {
   resource_group_name = module.network.main_rg
   appgw_subnet_id     = module.network.appgw_subnet_id
   subscription_id     = data.azurerm_client_config.current.subscription_id
-  dns_zone_name      = var.dns_zone_name
-  dns_resource_group = var.rg_name
-  tags               = var.tags
+  dns_zone_name       = var.dns_zone_name
+  dns_resource_group  = var.rg_name
+  tags                = var.tags
 }
 
 
