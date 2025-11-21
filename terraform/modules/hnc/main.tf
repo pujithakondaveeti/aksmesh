@@ -11,8 +11,6 @@ resource "helm_release" "hnc" {
   values = [
     file("${path.module}/../../../k8s-manifests/hierarchical-namespaces/helm-values/hnc-values.yaml")
   ]
-
-  depends_on = []
 }
 
 # Create parent namespace: ss-automative-nds
@@ -51,8 +49,6 @@ resource "kubernetes_manifest" "application1_nds" {
       namespace = kubernetes_namespace.ss_automative_nds.metadata[0].name
     }
   }
-
-  depends_on = [kubernetes_namespace.ss_automative_nds]
 }
 
 # Create SubnamespaceAnchor for application2-nds under ss-automative-nds
@@ -65,8 +61,6 @@ resource "kubernetes_manifest" "application2_nds" {
       namespace = kubernetes_namespace.ss_automative_nds.metadata[0].name
     }
   }
-
-  depends_on = [kubernetes_namespace.ss_automative_nds]
 }
 
 # Create SubnamespaceAnchor for integration1-nds under ss-integrations-nds
@@ -79,8 +73,6 @@ resource "kubernetes_manifest" "integration1_nds" {
       namespace = kubernetes_namespace.ss_integrations_nds.metadata[0].name
     }
   }
-
-  depends_on = [kubernetes_namespace.ss_integrations_nds]
 }
 
 # Create SubnamespaceAnchor for integration2-nds under ss-integrations-nds
@@ -93,6 +85,4 @@ resource "kubernetes_manifest" "integration2_nds" {
       namespace = kubernetes_namespace.ss_integrations_nds.metadata[0].name
     }
   }
-
-  depends_on = [kubernetes_namespace.ss_integrations_nds]
 }
